@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "Denzo Scan";
+}
+
+<div class="jumbotron" style="text-align:center;">
+    <h1>Denzo Comparison Tool</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-12" style="text-align:center;">
+        <div id="StatusMsg" style="width:100%; min-height:20px; text-align:center;"></div>
+        <h2 id="ScanLabel">Scan First Label</h2>
+        <input type="text" id="ScanHere" placeholder="Scan the parts" />
+        <br />
+        <br />
+        <p>Target IP: <span id="ip">192.168.1.180</span></p>@*66.184.253.162*@
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#ScanHere").focus();
+        $("#ScanHere").on("blur", function () {
+            $("#ScanHere").focus();
+        });
+
+        var goodaudio = new Audio('@Url.Content("~/Content/success.wav")');
+        var badaudio = new Audio('@Url.Content("~/Content/failure.wav")');
+
+        var ipregex = /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/g;
+        var barcode1 = "";
+        $("#ScanHere").on("keyup", function (e) {
+            if (e.keyCode == 13)
+            {
+                if (ipregex.exec($("#ScanHere").val()))
+                {
+                    $("#ip").html($("#ScanHere").val())
+                }
+                else
+                {
+                    if (barcode1 == "")
+                    {
+                        $("#ScanLabel").html("Scan Second Label");
+                        barcode1 = $("#ScanHere").val();
+                        $("#ScanHere").val("");
+                    }
+                    else
+                    {
+                        $("#ScanHere").prop("disabled", true);
+                        $("#ScanLabel").html("Processing...");
+                        $.getJSON("http://" + $("#ip").html() + "/InventoryManager/json/LogCompareRecord", { barcode1: barcode1, barcode2: $("#ScanHere").val() }, function (data) {
+                            barcode1 = "";
+                            $("#ScanHere").val("");
+                            $("#ScanLabel").html("Scan First Label");
+
+                            $("#ScanHere").prop("disabled", false);
+                            $("#ScanHere").focus();
+
+                            if(data.match == true)
+                            {
+                                $("#StatusMsg").css("background-color", "lightgreen");
+                                $("#StatusMsg").html("<strong>Success!</strong>  Those labels match.");
+
+                                goodaudio.play();
+                            }
+                            else
+                            {
+                                $("#StatusMsg").css("background-color", "lightpink");
+                                $("#StatusMsg").html("<strong>Failure!</strong>  Those labels don't match.");
+                                badaudio.play();
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    });
+</script>
