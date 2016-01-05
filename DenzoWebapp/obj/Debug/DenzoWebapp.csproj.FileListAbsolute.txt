@@ -64,6 +64,5 @@ c:\users\sta00_000\documents\visual studio 2015\Projects\DenzoWebapp\DenzoWebapp
 c:\users\sta00_000\documents\visual studio 2015\Projects\DenzoWebapp\DenzoWebapp\bin\Microsoft.Owin.Security.Google.xml
 c:\users\sta00_000\documents\visual studio 2015\Projects\DenzoWebapp\DenzoWebapp\bin\Microsoft.Owin.Security.Twitter.xml
 c:\users\sta00_000\documents\visual studio 2015\Projects\DenzoWebapp\DenzoWebapp\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-c:\users\sta00_000\documents\visual studio 2015\Projects\DenzoWebapp\DenzoWebapp\obj\Debug\DenzoWebapp.csprojResolveAssemblyReference.cache
 c:\users\sta00_000\documents\visual studio 2015\Projects\DenzoWebapp\DenzoWebapp\obj\Debug\DenzoWebapp.dll
 c:\users\sta00_000\documents\visual studio 2015\Projects\DenzoWebapp\DenzoWebapp\obj\Debug\DenzoWebapp.pdb
